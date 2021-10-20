@@ -1,4 +1,2 @@
 # JupiterPizzeria
-Proyecto de gestión jupiter; Se utilizo un modelo de autenticacion estandar proporcionado por laravel (auth),
-ademas de esto se utilizo mysql server para la creacion y instauracion de la base de datos dentro de la aplicacion (configuracion en archivo .env)
-
+Proyecto de gestión jupiter; Se utilizo un modelo de autenticación estándar proporcionado por laravel (auth), además de esto se utilizo mysql server para la creación y instauración de la base de datos dentro de la aplicación (configuracion en archivo .env)
