@@ -23,7 +23,7 @@ Route::resource('/Producto', ProductoController::class);
 
 Route::put('/Producto/ModCantidad/{id}', [ProductoController::class, 'ModCantidad'])->name('Producto.ModCantidad');
 
-Auth::routes();
+Auth::routes(['verify'=> true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
