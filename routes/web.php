@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductoController;
 
+use App\Http\Controllers\EntradaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,12 +22,15 @@ Route::get('/', function () {
 
 Route::resource('/Producto', ProductoController::class);
 
+
 Route::put('/Producto/ModCantidad/{id}', [ProductoController::class, 'ModCantidad'])->name('Producto.ModCantidad');
+
+Route::resource('/Entrada', EntradaController::class);
+
 
 Auth::routes(['verify'=> true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 
 

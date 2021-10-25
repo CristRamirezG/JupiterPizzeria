@@ -64,7 +64,7 @@
     
         @endforeach
     </table>
-    <button class="btn btn-success" > boton email </button>
+    <button class="btn btn-success" > Tabla a Excel </button>
 </div>
 
 
@@ -84,7 +84,7 @@
                      </blockquote>
                     <blockquote class="blockquote">
                         <h2>Cantidad Produccion Promedio:</h2>
-                        <h4>Producto: x / Producto y </h4>
+                        <h4>. . . </h4>
                         </blockquote>
                     
 

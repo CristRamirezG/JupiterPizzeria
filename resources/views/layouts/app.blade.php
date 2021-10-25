@@ -34,13 +34,14 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/b0b30c96184653.Y3JvcCwxMDgwLDg0NCwwLDExNw.jpg" class="img-fluid w-25 p-1" alt="Responsive image"  >
-                        <div class= "container">   
+                    <li class="list-group ">
                         <a href="/Producto" class = "btn btn-outline-dark btn-sm">Productos</a>
-                         </div> 
+                        <a href="/Entrada" class = "btn btn-outline-dark btn-sm">Entradas</a>
+                    </li>
+                    <ul class="navbar-nav mr-auto">
+                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/b0b30c96184653.Y3JvcCwxMDgwLDg0NCwwLDExNw.jpg" class="img-fluid w-25 p-1 mr-1" alt="Responsive image"  >
+                         
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
