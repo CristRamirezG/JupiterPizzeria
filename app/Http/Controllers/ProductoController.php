@@ -113,6 +113,8 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
+        
+
         $ProductoEliminar = Producto::findOrFail($id);
         $ProductoEliminar->delete();
         
@@ -135,7 +137,7 @@ class ProductoController extends Controller
         $Producto = Producto::all();
         $suma = 0;
         foreach($Producto as $item){
-            $suma = $suma + ($item->valor * $item->cantidad);
+            $suma = $suma + ($item->valor);
         }
         return $suma;
     }

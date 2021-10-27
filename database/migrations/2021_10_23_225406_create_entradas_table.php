@@ -20,7 +20,7 @@ class CreateEntradasTable extends Migration
             $table->text('descripcion');
             $table->integer('cantidad');
             $table->integer('valor');
-            //$table->text('autor');
+            $table->text('autor');
             $table->timestamps();
         });
     }

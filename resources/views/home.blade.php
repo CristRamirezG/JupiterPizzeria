@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <h1 class="text-center text-success">{{ __('Estas logueado y autenticado!') }}</h1>
             <div class="card">
                 <div class="card-header">{{ __('Inicio') }}</div>
 
@@ -22,8 +23,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
                 </div>
             </div>
         </div>

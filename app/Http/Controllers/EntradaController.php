@@ -55,6 +55,7 @@ class EntradaController extends Controller
         $ProductoPorId->valor = $request->valor + $ProductoPorId->valor;
         $EntradaNew->descripcion = $request->descripcion;
         $EntradaNew->valor = $request->valor;
+        $EntradaNew->autor = $request->autor;
         $ProductoPorId->save();
         $EntradaNew->save();
         return back();

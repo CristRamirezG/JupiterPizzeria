@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/sidebar',function(){
+    return view('layouts.sidebar');
+});
+
 Route::resource('/Producto', ProductoController::class);
 
 

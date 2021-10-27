@@ -69,6 +69,8 @@
                       placeholder="Valor"
                       class="form-control mb-2"
                     />
+                    <input type="hidden" name="autor" value="{{auth()->user()->name}}" />
+
                     <button class="btn btn-primary btn-block" type="submit">Agregar</button>
                   </form>
                 </div>

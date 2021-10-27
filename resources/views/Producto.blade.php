@@ -3,7 +3,8 @@
 
 @section('content')
 <div class='container my-4 '>
-    <h1>bienvenido {{auth()->user()->name}}</h1>
+    <h1>Bienvenido {{auth()->user()->name}}</h1>
+    <h2>Seleccione alguna de las siguentes acciones:</h2>
 
     <div class="d-inline-flex p-2">
         <a href="/Producto/create" class="btn btn-outline-primary">Agreagar Producto</a>
@@ -29,15 +30,36 @@
                 <td>{{$item->cantidad}}</td>
                 <td>${{$item->valor}}</td>
                 <td>
+
+
+
                     <a href="{{route('Producto.edit',$item)}}" class= "btn btn-outline-primary btn-sm ",$item>Modificar</a>
 
-                    <form action="{{route('Producto.destroy',$item)}}" class="d-inline " method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm ">Eliminar</button>
-                    </form> 
+                    <!-- boton eliminar con pop up -->
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">Eliminar</button>
+                    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>Estas seguro que quieres eliminar el producto?</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
 
-                    
+                                <div class="modal-body">
+                                    <h6>Recuerda que no deben existir Entradas asociadas</h6>
+                                    <form action="{{route('Producto.destroy',$item)}}" class="d-inline " method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-danger btn-sm ">Eliminar!</button>
+                                    </form> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!---->
+
                     <div class="my-2 mr-2 form-row align-items-center">
 
                         <button class= "btn btn-outline-success btn-sm">-</button>
