@@ -4,20 +4,32 @@
 @section('content')
 <div class='container my-4 '>
     <h1>Bienvenido {{auth()->user()->name}}</h1>
-    <h2>Seleccione alguna de las siguentes acciones:</h2>
+    <h2>Seleccione alguna de las siguientes acciones:</h2>
 
+
+    @error('eliminar')               
+        <div class="alert alert-danger" role="alert">
+        La Unidad de medida es obligatoria.
+        </div>
+    @enderror 
+
+    @if ( session('mensaje') )
+                    <div class="alert alert-success">{{ session('mensaje') }}</div>
+                  @endif
     <div class="d-inline-flex p-2">
-        <a href="/Producto/create" class="btn btn-outline-primary">Agreagar Producto</a>
+        <a href="/Producto/create" class="btn btn-outline-primary">Agregar Producto</a>
     </div>
 
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
+            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
-            <th scope="col">descripcion</th>
+            <th scope="col">Descripción</th>
             <th scope="col">Cantidad</th>
-            <th scope="col">Valor</th>
+            <th scope="col">Gasto Total</th>
+            <th scope="col">Valor Actual</th>
+            <th scope="col">Valor Estimado por unidad</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -27,8 +39,25 @@
                 <th scope="row">{{$item->id}}</th>
                 <td>{{$item->nombre}}</td>
                 <td>{{$item->descripcion}}</td>
-                <td>{{$item->cantidad}}</td>
+                @if ( $item->unidad_medida == "Kg/g")
+                <td>{{$item->cantidad}} g</td>
+                @endif
+                @if ( $item->unidad_medida == "L/ml" )
+                <td>{{$item->cantidad}} ml</td>
+                @endif
+                
                 <td>${{$item->valor}}</td>
+
+                <td>${{$item->valor_actual}}</td>
+
+                @if ( $item->unidad_medida == "Kg/g")
+                <td>Valor gramo ${{$item->valor_unitario}}</td>
+                @endif
+                @if ( $item->unidad_medida == "L/ml" )
+                <td>Valor mililitro ${{$item->valor_unitario}}</td>
+                @endif
+
+                
                 <td>
 
 
@@ -48,7 +77,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <h6>Recuerda que no deben existir Entradas asociadas</h6>
+                                    <h6>Recuerda que no deben existir “Entradas” o “Compras” asociadas</h6>
                                     <form action="{{route('Producto.destroy',$item)}}" class="d-inline " method="POST">
                                         @method('DELETE')
                                         @csrf
@@ -60,23 +89,7 @@
                     </div>
                     <!---->
 
-                    <div class="my-2 mr-2 form-row align-items-center">
-
-                        <button class= "btn btn-outline-success btn-sm">-</button>
-
-                        <div class="col-auto">
-                        <form  action="{{route('Producto.ModCantidad',$item->id)}}" method="POST">
-                            @method("PUT")
-                            @csrf
-
-                            <label class="sr-only" for="inlineFormInput">Name</label>
-                            <input type="text submit" name="suma" class="form-control form-control-sm" id="inlineFormInput" placeholder="Agregar">
-                        </form>
-                        </div>
-
-                        <button class= "btn btn-outline-success btn-sm">+</button>
-                        
-                    </div>
+                    
                     
                     
                 </td>
@@ -86,45 +99,8 @@
     
         @endforeach
     </table>
-    <button class="btn btn-success" > Tabla a Excel </button>
+
+
+   
 </div>
-
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <figure class="text-center">
-                <div class="card-header">{{ __('Datos Relevantes:') }}</div>
-            </figure>
-                    <figure class="text-center">
-                    <blockquote class="blockquote">
-                    <h2>Valorizacion Inventario</h2>
-                    <h4>Valor : ${{$suma}} </h4>
-
-
-                     </blockquote>
-                    <blockquote class="blockquote">
-                        <h2>Cantidad Produccion Promedio:</h2>
-                        <h4>. . . </h4>
-                        </blockquote>
-                    
-
-                    
-                    </figure>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 @endsection

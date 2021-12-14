@@ -16,19 +16,14 @@
 
                     @error('nombre')                <!-- llega el error desde el metodo Producto.store --> 
                     <div class="alert alert-danger" role="alert">
-                        El nombre del producto es obligatorio
+                        El nombre del producto es obligatorio.
                     </div>
                     @enderror
                     @error('descripcion')                <!-- llega el error desde el metodo Producto.store --> 
                         <div class="alert alert-danger" role="alert">
-                        la descripcion es obligatoria
+                          La descripción es obligatoria.
                         </div>
                     @enderror 
-                    @error('cantidad')                <!-- llega el error desde el metodo Producto.store --> 
-                        <div class="alert alert-danger" role="alert">
-                        cantidad debe ser un numero entero y es obligatorio
-                        </div>
-                    @enderror  
                     
                     
                   @if ( session('mensaje') )
@@ -48,22 +43,8 @@
                     <input
                       type="text"
                       name="descripcion"
-                      placeholder="Descripcion"
+                      placeholder="Descripción"
                       value="{{ $ProductoEditar->descripcion }}"
-                      class="form-control mb-2"
-                    />
-                    <input
-                      type="text"
-                      name="cantidad"
-                      placeholder="Cantidad"
-                      value="{{ $ProductoEditar->cantidad }}"
-                      class="form-control mb-2"
-                    />
-                    <input
-                      type="text"
-                      name="valor"
-                      placeholder="Valor"
-                      value="{{ $ProductoEditar->valor}}"
                       class="form-control mb-2"
                     />
                     <button class="btn btn-primary btn-block" type="submit">Agregar</button>

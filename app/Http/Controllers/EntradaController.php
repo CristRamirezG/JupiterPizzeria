@@ -21,9 +21,11 @@ class EntradaController extends Controller
 
     public function index()
     {
-
+        
         $Entradas = Entrada::all();
+        EntradaController::Recalcular_valor();
         //$Producto = Producto::all();
+    
         return view('Entrada',compact('Entradas'));
     }
 
@@ -46,19 +48,43 @@ class EntradaController extends Controller
      */
     public function store(Request $request)     //modifica el valor y la cantidad del producto 
     {
+
+
+        $request->validate([
+            'id_producto'=> 'required',
+            'descripcion'=> 'required',
+            'cantidad' => 'required|numeric',
+            'unidad_medida' => 'required',
+            'valor' => 'required|numeric'
+        ]);
+
+
         $ProductoPorId = Producto::findOrFail($request->id_producto);
         $EntradaNew = new Entrada();
         $EntradaNew->id_producto = $request->id_producto;
         $EntradaNew->cantidad = $request->cantidad;
         $EntradaNew->nombre_producto = $ProductoPorId->nombre;
-        $ProductoPorId->cantidad = $request->cantidad + $ProductoPorId->cantidad;
+        $EntradaNew->unidad_medida = $request->unidad_medida;
+        if($EntradaNew->unidad_medida == "kg" || $EntradaNew->unidad_medida == "l")
+        {
+            $ProductoPorId->cantidad = ($request->cantidad * 1000) + $ProductoPorId->cantidad;
+            $ProductoPorId->cantidad_total = ($request->cantidad * 1000) + $ProductoPorId->cantidad_total;
+        }
+        else
+        {
+            $ProductoPorId->cantidad = $request->cantidad + $ProductoPorId->cantidad;
+            $ProductoPorId->cantidad_total = $request->cantidad + $ProductoPorId->cantidad_total;
+        }
         $ProductoPorId->valor = $request->valor + $ProductoPorId->valor;
         $EntradaNew->descripcion = $request->descripcion;
         $EntradaNew->valor = $request->valor;
         $EntradaNew->autor = $request->autor;
+        $EntradaNew->id_autor =$request->id_autor;
+        $ProductoPorId->valor_unitario =  $ProductoPorId->valor / $ProductoPorId->cantidad_total;
+        $ProductoPorId->valor_actual = $ProductoPorId->valor_unitario * $ProductoPorId->cantidad;
         $ProductoPorId->save();
         $EntradaNew->save();
-        return back();
+        return back()->with('mensaje', 'Se genero la entrada correctamente.');
 
         return $request;    
     }
@@ -107,10 +133,51 @@ class EntradaController extends Controller
     {
         $EntradaEliminar = Entrada::findOrFail($id);
         $Producto = Producto::findOrFail($EntradaEliminar->id_producto);
-        $Producto->cantidad = $Producto->cantidad - $EntradaEliminar->cantidad;
-        $Producto->valor = $Producto->cantidad - $EntradaEliminar->valor;
+
+        if($EntradaEliminar->unidad_medida == "kg" || $EntradaEliminar->unidad_medida == "l")
+        {
+            $Producto->cantidad = $Producto->cantidad - $EntradaEliminar->cantidad * 1000;
+            $Producto->cantidad_total = $Producto->cantidad_total - $EntradaEliminar->cantidad * 1000;
+        }
+        else
+        {
+            $Producto->cantidad = $Producto->cantidad - $EntradaEliminar->cantidad;
+            $Producto->cantidad_total = $Producto->cantidad_total - $EntradaEliminar->cantidad;
+        }
+        $Producto->valor = $Producto->valor - $EntradaEliminar->valor;
         $EntradaEliminar->delete();
         $Producto->save();
         return back();
     }
+    public function Recalcular_valor()
+    {
+        $Entrada = Entrada::all();
+        $Producto = Producto::all();
+        // se debe sumar el valor de todas las entradas registradas hasta el momento con un producto en especifico
+
+        foreach($Producto as $itemProducto)
+        {
+            $itemProducto -> valor = 0;
+            $itemProducto->valor_unitario = 0;
+            foreach($Entrada as $itemEntrada)
+            {
+                if($itemEntrada->id_producto == $itemProducto -> id)
+                {
+                    $itemProducto -> valor = $itemEntrada->valor + $itemProducto -> valor;
+                }
+            }
+            if ($itemProducto->valor == 0)
+            {
+                $itemProducto->valor_unitario = 0;
+            } 
+            else
+            {
+                $itemProducto->valor_unitario = $itemProducto->valor / $itemProducto->cantidad_total ;
+            }
+            
+            $itemProducto->valor_actual = $itemProducto->valor_unitario * $itemProducto->cantidad;
+            $itemProducto -> save();
+        }
+    }
+
 }

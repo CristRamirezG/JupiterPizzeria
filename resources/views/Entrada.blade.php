@@ -4,18 +4,17 @@
 
 <div class='container my-4 '>
     <h1>Bienvenido {{auth()->user()->name}}</h1>
-    <h2>Seleccione alguna de las siguentes acciones:</h2>
+    <h2>Seleccione alguna de las siguientes acciones:</h2>
 
     <div class="d-inline-flex p-2">
         <a href="/Entrada/create" class="btn btn-outline-primary">Generar Nueva Entrada</a>
     </div>
-
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
+            <th scope="col">ID</th>
             <th scope="col">Producto</th>
-            <th scope="col">descripcion</th>
+            <th scope="col">Descripción</th>
             <th scope="col">Cantidad Agregada</th>
             <th scope="col">Valor</th>
             <th scope="col">Autor Entrada</th>
@@ -29,7 +28,7 @@
                 <th scope="row">{{$item->id}}</th>
                 <td>{{$item->nombre_producto}}</td>
                 <td>{{$item->descripcion}}</td>
-                <td>{{$item->cantidad}}</td>
+                <td>{{$item->cantidad}} {{$item->unidad_medida}}</td>
                 <td>${{$item->valor}}</td>
                 <td>{{$item->autor}}</td>
                 <td>{{$item->created_at}}</td>
@@ -46,8 +45,6 @@
     
         @endforeach
     </table>
-    <button class="btn btn-success" > Tabla a Excel </button>
-    
 </div>
 
     

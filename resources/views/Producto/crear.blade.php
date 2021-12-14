@@ -15,17 +15,17 @@
 
                     @error('nombre')                <!-- llega el error desde el metodo Producto.store --> 
                     <div class="alert alert-danger" role="alert">
-                        El nombre del producto es obligatorio
+                        El nombre del producto es obligatorio.
                     </div>
                     @enderror
                     @error('descripcion')                <!-- llega el error desde el metodo Producto.store --> 
                         <div class="alert alert-danger" role="alert">
-                        la descripcion es obligatoria
+                        La descripcion es obligatoria.
                         </div>
                     @enderror 
-                    @error('cantidad')                <!-- llega el error desde el metodo Producto.store --> 
+                    @error('unidad_medida')                <!-- llega el error desde el metodo Producto.store --> 
                         <div class="alert alert-danger" role="alert">
-                        cantidad debe ser un numero entero y es obligatorio
+                        La Unidad de medida es obligatoria.
                         </div>
                     @enderror  
                     
@@ -38,27 +38,34 @@
                     <input
                       type="text"
                       name="nombre"     
-                      placeholder="nombre"
+                      placeholder="Nombre"
                       class="form-control mb-2"
                     />
                     <input
                       type="text"
                       name="descripcion"
-                      placeholder="descripcion"
+                      placeholder="Descripción"
                       class="form-control mb-2"
                     />
-                    <input
-                      type="text"
-                      name="cantidad"
-                      placeholder="cantidad"
-                      class="form-control mb-2"
-                    />
-                    <input
-                      type="text"
-                      name="valor"
-                      placeholder="Valor"
-                      class="form-control mb-2"
-                    />
+                    
+                    <input type="hidden" name="cantidad" value="0" />
+                    
+                    <input type="hidden" name="valor" value="0" />
+
+                    <div class="input-group mb-3">
+
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="id_producto">Unidad de medida</label>
+                      </div>    
+
+                      <select class="custom-select" id="id_producto" name="unidad_medida">
+                        <option disabled selected value>. . .</option>
+                        <option  value="Kg/g">Kilogramo / gramo</option>
+                        <option  value="L/ml">Litro / mililitro</option>
+                      </select>
+
+                    </div>
+
                     <button class="btn btn-primary btn-block" type="submit">Agregar</button>
                   </form>
                 </div>

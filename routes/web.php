@@ -5,6 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 
 use App\Http\Controllers\EntradaController;
+
+use App\Http\Controllers\RecetaController;
+
+use App\Http\Controllers\Lista_Receta_ProductoController;
+
+use App\Http\Controllers\SalidaController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +24,7 @@ use App\Http\Controllers\EntradaController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/sidebar',function(){
     return view('layouts.sidebar');
@@ -31,10 +37,16 @@ Route::put('/Producto/ModCantidad/{id}', [ProductoController::class, 'ModCantida
 
 Route::resource('/Entrada', EntradaController::class);
 
+Route::resource('/Receta', RecetaController::class);
+
+Route::resource('/Lista', Lista_Receta_ProductoController::class);
+
+Route::resource('/Salida', SalidaController::class);
 
 Auth::routes(['verify'=> true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']); // parch
 
 
 

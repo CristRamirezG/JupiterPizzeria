@@ -18,9 +18,11 @@ class CreateEntradasTable extends Migration
             $table->foreignId('id_producto')->constrained('productos');
             $table->string('nombre_producto');
             $table->text('descripcion');
+            $table->text('unidad_medida');
             $table->integer('cantidad');
             $table->integer('valor');
             $table->text('autor');
+            $table->foreignId('id_autor')->constrained('users');
             $table->timestamps();
         });
     }

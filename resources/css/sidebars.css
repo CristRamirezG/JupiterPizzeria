@@ -28,7 +28,7 @@ main {
 }
 
 .bi {
-  vertical-align: -.125em;
+  vertical-align:top;
   pointer-events: none;
   fill: currentColor;
 }

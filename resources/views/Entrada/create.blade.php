@@ -13,21 +13,31 @@
                 <div class="card-body">
                     
 
-                    @error('nombre')                <!-- llega el error desde el metodo Producto.store --> 
+                    @error('id_producto')                <!-- llega el error desde el metodo Producto.store --> 
                     <div class="alert alert-danger" role="alert">
-                        El nombre del producto es obligatorio
+                        El ID de producto es obligatorio.
                     </div>
                     @enderror
                     @error('descripcion')                <!-- llega el error desde el metodo Producto.store --> 
                         <div class="alert alert-danger" role="alert">
-                        la descripcion es obligatoria
+                        La descripción es obligatoria.
                         </div>
                     @enderror 
                     @error('cantidad')                <!-- llega el error desde el metodo Producto.store --> 
                         <div class="alert alert-danger" role="alert">
-                        cantidad debe ser un numero entero y es obligatorio
+                        El campo “cantidad” debe ser un numero entero y es obligatorio.
                         </div>
-                    @enderror  
+                    @enderror
+                    @error('unidad_medida')                <!-- llega el error desde el metodo Producto.store --> 
+                        <div class="alert alert-danger" role="alert">
+                        La unidad de medida es obligatoria.
+                        </div>
+                    @enderror 
+                    @error('valor')                <!-- llega el error desde el metodo Producto.store --> 
+                        <div class="alert alert-danger" role="alert">
+                        El valor de la entrada es obligatorio.
+                        </div>
+                    @enderror   
                     
                     
                   @if ( session('mensaje') )
@@ -44,7 +54,7 @@
 
                                                 
                         <select class="custom-select" id="id_producto" name="id_producto">
-                          <option selected>. . .</option>
+                          <option disabled selected value>. . .</option>
                         @foreach ($Producto as $ProductoItem)
                             <option  value="{{$ProductoItem->id}}">{{$ProductoItem->nombre}}</option>
                         @endforeach
@@ -54,22 +64,40 @@
                     <input
                       type="text"
                       name="descripcion"
-                      placeholder="descripcion"
+                      placeholder="Descripción"
                       class="form-control mb-2"
                     />
                     <input
                       type="text"
                       name="cantidad"
-                      placeholder="cantidad"
+                      placeholder="Cantidad"
                       class="form-control mb-2"
                     />
-                    <input
-                      type="text"
-                      name="valor"
-                      placeholder="Valor"
-                      class="form-control mb-2"
-                    />
+                    
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Unidad de medida</span>
+                      <select class="custom-select" id="unidad_medida" name="unidad_medida">
+                        <option disabled selected value>. . .</option>
+                          <option  value="kg">Kilogramo (Kg)</option>
+                          <option  value="g">Gramo (g)</option>
+                          <option  value="l">Litro (l)</option>
+                          <option  value="ml">Mililitro (ml)</option>
+                      </select>
+                    </div>
+
+                    <div class="input-group mb-1">
+                      <input
+                        type="text"
+                        name="valor"
+                        placeholder="Valor"
+                        class="form-control mb-2"
+                      />
+                      <span class="input-group-text mb-2">$</span>
+                      </div>
+
                     <input type="hidden" name="autor" value="{{auth()->user()->name}}" />
+                    <input type="hidden" name="id_autor" value="{{auth()->user()->id}}" />
+                    
 
                     <button class="btn btn-primary btn-block" type="submit">Agregar</button>
                   </form>

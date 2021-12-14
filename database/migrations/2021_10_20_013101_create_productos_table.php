@@ -17,7 +17,11 @@ class CreateProductosTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->text('descripcion');
-            $table->integer('cantidad');
+            $table->text('unidad_medida');
+            $table->integer('cantidad');                //cantidad historica, disminulle cuando se elimina una entrada.
+            $table->integer('cantidad_total');  
+            $table->float('valor_unitario');
+            $table->integer('valor_actual');
             $table->integer('valor');
             $table->timestamps();
         });
